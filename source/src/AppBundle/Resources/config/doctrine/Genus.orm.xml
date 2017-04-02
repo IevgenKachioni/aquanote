@@ -4,7 +4,22 @@
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="name" type="string" column="name" length="45" nullable="true">
+    <field name="name" type="string" column="name" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="subFamily" type="string" column="sub_family" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="speciesCount" type="integer" column="species_count" nullable="true">
+      <options>
+        <option name="unsigned">1</option>
+      </options>
+    </field>
+    <field name="funFact" type="string" column="fun_fact" length="255" nullable="true">
       <options>
         <option name="fixed"/>
       </options>

@@ -15,9 +15,30 @@ class Genus
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=45, nullable=true)
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
     private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sub_family", type="string", length=255, nullable=true)
+     */
+    private $subFamily;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="species_count", type="integer", nullable=true)
+     */
+    private $speciesCount;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fun_fact", type="string", length=255, nullable=true)
+     */
+    private $funFact;
 
     /**
      * @var integer
@@ -52,6 +73,78 @@ class Genus
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set subFamily
+     *
+     * @param string $subFamily
+     *
+     * @return Genus
+     */
+    public function setSubFamily($subFamily)
+    {
+        $this->subFamily = $subFamily;
+
+        return $this;
+    }
+
+    /**
+     * Get subFamily
+     *
+     * @return string
+     */
+    public function getSubFamily()
+    {
+        return $this->subFamily;
+    }
+
+    /**
+     * Set speciesCount
+     *
+     * @param integer $speciesCount
+     *
+     * @return Genus
+     */
+    public function setSpeciesCount($speciesCount)
+    {
+        $this->speciesCount = $speciesCount;
+
+        return $this;
+    }
+
+    /**
+     * Get speciesCount
+     *
+     * @return integer
+     */
+    public function getSpeciesCount()
+    {
+        return $this->speciesCount;
+    }
+
+    /**
+     * Set funFact
+     *
+     * @param string $funFact
+     *
+     * @return Genus
+     */
+    public function setFunFact($funFact)
+    {
+        $this->funFact = $funFact;
+
+        return $this;
+    }
+
+    /**
+     * Get funFact
+     *
+     * @return string
+     */
+    public function getFunFact()
+    {
+        return $this->funFact;
     }
 
     /**
