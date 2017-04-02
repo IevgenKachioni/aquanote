@@ -1,3 +1,5 @@
+# Bundles give us services. These services are configured below
+
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
@@ -70,3 +72,11 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# DoctrineCache is bundle and doctrine_cache.providers.my_markdown_cache is service for that bundle
+doctrine_cache:
+    providers:
+        my_markdown_cache:
+            type: file_system
+            file_system:
+                directory: /tmp/doctrine_cache
