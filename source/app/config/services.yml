@@ -1,3 +1,4 @@
+# config.yml includes this file
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/service_container.html
 parameters:

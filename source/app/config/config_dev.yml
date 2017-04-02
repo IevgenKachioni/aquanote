@@ -1,5 +1,9 @@
+# Overwrites configs from config.yml
 imports:
     - { resource: config.yml }
+
+parameters:
+    cache_type: array
 
 framework:
     router:

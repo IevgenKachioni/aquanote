@@ -1,3 +1,4 @@
+# Overwrites configs from config.yml
 imports:
     - { resource: config.yml }
 

@@ -1,4 +1,5 @@
-# Bundles give us services. These services are configured below
+# Bundles give us services. These services are configured below.
+# Environment config files (like config_dev.yml) includes this file.
 
 imports:
     - { resource: parameters.yml }
@@ -9,6 +10,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    cache_type: file_system
 
 framework:
     #esi:             ~
@@ -41,7 +43,7 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     number_format:
-        thousands_separator: '.'
+        thousands_separator: ','
 
 # Doctrine Configuration
 doctrine:
@@ -77,6 +79,7 @@ swiftmailer:
 doctrine_cache:
     providers:
         my_markdown_cache:
-            type: file_system
+            type: %cache_type%
             file_system:
-                directory: /tmp/doctrine_cache
+                #kernel.cache_dir is different in different environments
+                directory: %kernel.cache_dir%/markdown_cache

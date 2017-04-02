@@ -1,3 +1,10 @@
+# Routes available in all environments
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+homepage:
+    path: /
+    defaults:
+        # AppBundle\Controller\MainController::homepageAction
+        _controller: AppBundle:Main:homepage
