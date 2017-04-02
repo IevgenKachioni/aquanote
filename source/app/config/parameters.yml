@@ -1,7 +1,4 @@
-#Machine-specific configs
-
-# config.yml includes this file
-# parameters is key word that allows using %key% in other config files
+# This file is auto-generated during the composer install
 parameters:
     database_host: 127.0.0.1
     database_port: null
