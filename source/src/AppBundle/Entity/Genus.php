@@ -41,6 +41,13 @@ class Genus
     private $funFact;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_published", type="boolean", nullable=false)
+     */
+    private $isPublished;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -145,6 +152,30 @@ class Genus
     public function getFunFact()
     {
         return $this->funFact;
+    }
+
+    /**
+     * Set isPublished
+     *
+     * @param boolean $isPublished
+     *
+     * @return Genus
+     */
+    public function setIsPublished($isPublished)
+    {
+        $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    /**
+     * Get isPublished
+     *
+     * @return boolean
+     */
+    public function getIsPublished()
+    {
+        return $this->isPublished;
     }
 
     /**
