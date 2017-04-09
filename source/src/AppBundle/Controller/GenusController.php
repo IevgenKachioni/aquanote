@@ -9,10 +9,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Genus controller
+ *
+ * @Route("/genus")
+ */
 class GenusController extends Controller
 {
     /**
-     * @Route("/genus/")
+     * @Route("/")
+     * @Method("GET")
      */
     public function listAction()
     {
@@ -23,12 +29,12 @@ class GenusController extends Controller
         return $this->render('genus/list.html.twig', [
             'genuses' => $genuses,
         ]);
-
     }
 
 
     /**
-     * @Route("/genus/{genusName}")
+     * @Route("/new", name="genus_new")
+     * @Method("GET")
      */
     public function newAction()
     {
@@ -47,36 +53,40 @@ class GenusController extends Controller
 
 
     /**
-     * @Route("/genus/{genusName}")
+     * @Route("/show/{genusName}", name="genus_show")
      * @Method("GET")
      */
     public function showAction($genusName)
     {
+        $em = $this->getDoctrine()->getManager();
 
-        $funFact = 'Fun fact *text* goes here';
+        $genus = $em->getRepository('AppBundle:Genus')->findOneBy(['name' => $genusName]);
 
-        $cache = $this->get('doctrine_cache.providers.my_markdown_cache');
-        $key = md5($funFact);
-        if ($cache->contains($key)) {
-            $funFact = $cache->fetch($key);
-        } else {
-            //sleep(2);
-            $funFact = $this->get('markdown.parser')->transform($funFact);
-            $cache->save($key, $funFact);
+        if (!$genus) {
+            throw $this->createNotFoundException('Genus not found');
         }
 
+//        $cache = $this->get('doctrine_cache.providers.my_markdown_cache');
+//        $key = md5($funFact);
+//        if ($cache->contains($key)) {
+//            $funFact = $cache->fetch($key);
+//        } else {
+//            //sleep(2);
+//            $funFact = $this->get('markdown.parser')->transform($funFact);
+//            $cache->save($key, $funFact);
+//        }
+
         return $this->render('genus/show.html.twig', array(
-            'name' => $genusName,
-            'funFact' => $funFact,
+            'genus' => $genus
         ));
     }
 
 
     /**
-     * @Route("/genus/{genusName}/notes", name="genus_show_notes")
+     * @Route("/{genusName}/notes", name="genus_show_notes")
      * @Method("GET")
      */
-    public function getNotesAction($genusName)
+    public function getNotesAction()
     {
         $notes = [
             ['id' => 1, 'username' => 'AquaPelham', 'avatarUri' => '/images/leanna.jpeg', 'note' => 'Octopus asked me a riddle, outsmarted me', 'date' => 'Dec. 10, 2015'],

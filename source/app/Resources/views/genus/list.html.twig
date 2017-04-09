@@ -13,8 +13,11 @@
         <tbody>
             {% for genus in genuses %}
                 <tr>
-                    {# Twig notices that 'name' is private and calls getName instead #}
-                    <td>{{ genus.name }}</td>
+                    <td>
+                        {# {'genusName': genus.name} is array defining syntax #}
+                        <a href="{{ path('genus_show', {'genusName': genus.name}) }}">{{ genus.name }}</a>
+                    </td>
+                    {# Twig notices that 'speciesCount' is private and calls getSpeciesCount instead #}
                     <td>{{ genus.speciesCount }}</td>
                     <td>{{ genus.updatedAt|date('Y-m-d') }}</td>
                 </tr>
