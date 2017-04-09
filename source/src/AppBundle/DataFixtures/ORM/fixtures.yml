@@ -1,6 +1,6 @@
 AppBundle\Entity\Genus:
     genus_{1..10}:              # create 10 Genus objects
-        name: <name()>          # <...> syntax means using built-in Faker functions ('name' func)
+        name: <genus()>          # <...> syntax means using built-in Faker functions ('name' func)
         subFamily: <text(20)>       # 20 chars of random text
         speciesCount: <numberBetween(100, 100000)>
         funFact: <sentence()>
