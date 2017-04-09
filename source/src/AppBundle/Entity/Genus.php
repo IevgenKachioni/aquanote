@@ -156,4 +156,9 @@ class Genus
     {
         return $this->id;
     }
+
+    public function getUpdatedAt()
+    {
+        return new \DateTime();
+    }
 }

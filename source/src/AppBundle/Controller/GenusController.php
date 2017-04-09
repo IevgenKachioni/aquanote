@@ -12,6 +12,22 @@ use Symfony\Component\HttpFoundation\Response;
 class GenusController extends Controller
 {
     /**
+     * @Route("/genus/")
+     */
+    public function listAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $genuses = $em->getRepository('AppBundle:Genus')->findAll();
+
+        return $this->render('genus/list.html.twig', [
+            'genuses' => $genuses,
+        ]);
+
+    }
+
+
+    /**
      * @Route("/genus/{genusName}")
      */
     public function newAction()
@@ -28,6 +44,7 @@ class GenusController extends Controller
 
         return new Response('<html><body>Genus created!</body></html>');
     }
+
 
     /**
      * @Route("/genus/{genusName}")
@@ -53,6 +70,7 @@ class GenusController extends Controller
             'funFact' => $funFact,
         ));
     }
+
 
     /**
      * @Route("/genus/{genusName}/notes", name="genus_show_notes")
