@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Response;
 class GenusController extends Controller
 {
     /**
+     * List all genuses
+     *
      * @Route("/")
      * @Method("GET")
      */
@@ -27,7 +29,7 @@ class GenusController extends Controller
         $genuses = $em->getRepository('AppBundle:Genus')->findAll();
 
         return $this->render('genus/list.html.twig', [
-            'genuses' => $genuses,
+            'genuses' => $genuses
         ]);
     }
 
