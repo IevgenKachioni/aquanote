@@ -50,9 +50,14 @@ class GenusNote
     private $id;
 
     /**
+     * Many GenusNote to one Genus
+     * Main side of ManyToOne relationship
+     *
+     * inversedBy="notes" - refers to 'notes' property in Genus
+     *
      * @var \AppBundle\Entity\Genus
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Genus")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Genus", inversedBy="notes")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="genus_id", referencedColumnName="id")
      * })
