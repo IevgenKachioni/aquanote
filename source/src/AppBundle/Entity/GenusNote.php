@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * GenusNote
  *
- * @ORM\Table(name="genus_note")
+ * @ORM\Table(name="genus_note", indexes={@ORM\Index(name="fk_genus_note_genus_idx", columns={"genus_id"})})
  * @ORM\Entity
  */
 class GenusNote
@@ -48,6 +48,16 @@ class GenusNote
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @var \AppBundle\Entity\Genus
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Genus")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="genus_id", referencedColumnName="id")
+     * })
+     */
+    private $genus;
 
 
 
@@ -155,5 +165,29 @@ class GenusNote
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set genus
+     *
+     * @param \AppBundle\Entity\Genus $genus
+     *
+     * @return GenusNote
+     */
+    public function setGenus(\AppBundle\Entity\Genus $genus = null)
+    {
+        $this->genus = $genus;
+
+        return $this;
+    }
+
+    /**
+     * Get genus
+     *
+     * @return \AppBundle\Entity\Genus
+     */
+    public function getGenus()
+    {
+        return $this->genus;
     }
 }
