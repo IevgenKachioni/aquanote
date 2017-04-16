@@ -1,6 +1,8 @@
+# For Faker syntax, see https://github.com/fzaninotto/Faker
 AppBundle\Entity\Genus:
     genus_{1..10}:              # create 10 Genus objects
-        name: <genus()>          # <...> syntax means using built-in Faker functions ('name' func)
+        name: <genus()>          # <...> syntax means use Faker functions (see custom genus method defined in LoadFixtures.php)
         subFamily: <text(20)>       # 20 chars of random text
         speciesCount: <numberBetween(100, 100000)>
         funFact: <sentence()>
+        isPublished: <boolean(75)>
