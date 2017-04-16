@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 02, 2017 at 08:39 PM
+-- Generation Time: Apr 16, 2017 at 11:56 AM
 -- Server version: 5.7.17-0ubuntu0.16.04.1
 -- PHP Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -27,19 +27,27 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `genus` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `sub_family` varchar(255) DEFAULT NULL,
   `species_count` int(10) UNSIGNED DEFAULT NULL,
-  `fun_fact` varchar(255) DEFAULT NULL
+  `fun_fact` varchar(255) DEFAULT NULL,
+  `is_published` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `genus`
 --
 
-INSERT INTO `genus` (`id`, `name`, `sub_family`, `species_count`, `fun_fact`) VALUES
-(1, 'Octopus7', 'Octopodinae', 25521, NULL);
+INSERT INTO `genus` (`id`, `name`, `sub_family`, `species_count`, `fun_fact`, `is_published`) VALUES
+(28, 'Hippocampus', 'Culpa consequatur.', 93263, 'Accusamus nihil repellat vero omnis voluptates id amet et.', 1),
+(29, 'Asterias', 'Suscipit qui.', 46721, 'Quam ipsam voluptatem cupiditate sed natus debitis voluptas.', 0),
+(30, 'Hippocampus', 'Laudantium sit.', 41789, 'Dignissimos error et itaque quibusdam tempora velit.', 1),
+(31, 'Hippocampus', 'Ut velit soluta.', 69263, 'Debitis et saepe eum sint dolorem delectus.', 1),
+(32, 'Balaena', 'Ipsum inventore sed.', 90529, 'Qui suscipit a deserunt laudantium quibusdam.', 1),
+(33, 'Balaena', 'Nostrum soluta qui.', 21198, 'Velit reiciendis aperiam et fuga.', 0),
+(34, 'Aurelia', 'Nisi placeat cumque.', 44669, 'Modi saepe architecto unde non dicta eveniet exercitationem.', 1),
+(35, 'Aurelia', 'Porro sed magni.', 2034, 'Voluptas sint non voluptates.', 1);
 
 -- --------------------------------------------------------
 
@@ -82,7 +90,7 @@ ALTER TABLE `migration_versions`
 -- AUTO_INCREMENT for table `genus`
 --
 ALTER TABLE `genus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
