@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Genus;
+use AppBundle\Entity\GenusNote;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -47,7 +48,15 @@ class GenusController extends Controller
         $genus->setSubFamily('Octopodinae');
         $genus->setSpeciesCount(rand(100, 40000));
 
+        $genusNote = new GenusNote();
+        $genusNote->setUsername('AquaWeaver');
+        $genusNote->setUserAvatarFilename('ryan.jpeg');
+        $genusNote->setNote('I counted 8 legs...');
+        $genusNote->setCreatedAt(new \DateTime('-1 month'));
+        $genusNote->setGenus($genus);
+
         $em->persist($genus);
+        $em->persist($genusNote); // persisting order is not important
         $em->flush();
 
         return new Response('<html><body>Genus created!</body></html>');

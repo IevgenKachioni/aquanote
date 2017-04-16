@@ -57,6 +57,13 @@ class Genus
     private $id;
 
 
+    /**
+     * Genus constructor.
+     */
+    public function __construct()
+    {
+        $this->isPublished = true;
+    }
 
     /**
      * Set name
