@@ -57,15 +57,6 @@ class Genus
      */
     private $id;
 
-    /**
-     * Inverse side of ManyToOne relationship described in GenusNote
-     *
-     * mappedBy="genus" - "genus" prop in GenusNote that forms the main side of ManyToOne relationship
-     *
-     * @ORM\OneToMany(targetEntity="GenusNote", mappedBy="genus")
-     */
-    private $notes;
-
 
     /**
      * Genus constructor.
@@ -73,7 +64,6 @@ class Genus
     public function __construct()
     {
         $this->isPublished = true;
-        $this->notes = new ArrayCollection();
     }
 
     /**
@@ -209,10 +199,5 @@ class Genus
     public function getUpdatedAt()
     {
         return new \DateTime();
-    }
-
-    public function getNotes()
-    {
-         return $this->notes;
     }
 }
