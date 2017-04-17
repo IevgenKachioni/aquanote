@@ -20,7 +20,18 @@
     </div>
 
     <div>
-
+        <h4>NOTES</h4>
+        <ul>
+            {% for genusNote in genusNotes %}
+                <li>
+                    <p>id: {{ genusNote.id }}</p>
+                    <p>{{ genusNote.note }}</p>
+                    <p>
+                        <img src="/images/{{ genusNote.userAvatarFileName }}">
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 {% endblock %}
 

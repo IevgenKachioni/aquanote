@@ -87,9 +87,11 @@ class GenusController extends Controller
 //            $cache->save($key, $funFact);
 //        }
 
+        $genusNotes = $em->getRepository('AppBundle:GenusNote')->findBy(['genus' => $genus]);
+
         return $this->render('genus/show.html.twig', array(
             'genus' => $genus,
-            'genusNotes' => $genus->getNotes()
+            'genusNotes' => $genusNotes
         ));
     }
 
