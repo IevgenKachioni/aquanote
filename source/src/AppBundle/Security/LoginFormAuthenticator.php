@@ -3,6 +3,7 @@
 namespace AppBundle\Security;
 
 use AppBundle\Form\LoginForm;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -13,10 +14,12 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
     private $formFactory;
+    private $em;
 
-    public function __construct(FormFactoryInterface $formFactory)
+    public function __construct(FormFactoryInterface $formFactory, EntityManager $em)
     {
         $this->formFactory = $formFactory;
+        $this->em = $em;
     }
 
 
@@ -25,7 +28,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      *
      * @param Request $request
      *
-     * @return mixed|null
+     * @return array|null
      */
     public function getCredentials(Request $request)
     {
@@ -47,24 +50,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
 
     /**
-     * Return the URL to the login page.
-     *
-     * @return string
-     */
-    protected function getLoginUrl()
-    {
-    }
-
-
-    /**
-     * Return a UserInterface object based on the credentials.
-     *
-     * The *credentials* are the return value from getCredentials()
+     * Step 2: If nul returned from getCredentials, authentication is skipped.
+     * Otherwise, this method is called.
      *
      * You may throw an AuthenticationException if you wish. If you return
      * null, then a UsernameNotFoundException is thrown for you.
      *
-     * @param mixed $credentials
+     * @param mixed $credentials // Data returned from getCredentials method
      * @param UserProviderInterface $userProvider
      *
      * @throws AuthenticationException
@@ -73,17 +65,15 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
+        $username = $credentials['_username']; // In our case, it is email
+        //
+        return $this->em->getRepository('AppBundle:User')->findOneBy(['email' => $username]);
     }
 
 
     /**
-     * Returns true if the credentials are valid.
-     *
-     * If any value other than true is returned, authentication will
-     * fail. You may also throw an AuthenticationException if you wish
-     * to cause authentication to fail.
-     *
-     * The *credentials* are the return value from getCredentials()
+     * Step3: If null is returned from getUser, Guard fails.
+     * Otherwise, this method is called. Validation is performed in checkCredentials method!
      *
      * @param mixed $credentials
      * @param UserInterface $user
@@ -94,6 +84,32 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
-        // TODO: Implement checkCredentials() method.
+        $password = $credentials['password'];
+
+        if ($password == 'password') {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Return the URL to the login page (used if auth fails)
+     *
+     * @return string
+     */
+    protected function getLoginUrl()
+    {
+    }
+
+
+    /**
+     * Return path to redirect to (if auth is successful)
+     *
+     * @return string
+     */
+    protected function getDefaultSuccessRedirectUrl()
+    {
     }
 }
