@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})})
  * @ORM\Entity
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var string
@@ -18,6 +19,7 @@ class User
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
     private $email;
+
 
     /**
      * @var integer
@@ -44,6 +46,7 @@ class User
         return $this;
     }
 
+
     /**
      * Get email
      *
@@ -54,6 +57,7 @@ class User
         return $this->email;
     }
 
+
     /**
      * Get id
      *
@@ -62,5 +66,34 @@ class User
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     *
+     * Auth specific methods
+     *
+     */
+
+    // Must be unique
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getPassword()
+    {
+    }
+
+    public function getSalt()
+    {
+    }
+
+    public function eraseCredentials()
+    {
     }
 }
