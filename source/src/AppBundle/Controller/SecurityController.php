@@ -34,6 +34,19 @@ class SecurityController extends Controller
     }
 
 
+    /**
+     * Symfony intercepts errors to /logout (see serurity.yml).
+     * This action is defined so as 404 exception is not thrown before Symfony handles logging out.
+     *
+     * @Route("/logout", name="security_logout")
+     * @Method("GET")
+     */
+    public function logoutAction()
+    {
+        throw new \Exception('This should not be reached');
+    }
+
+
 //    /**
 //     * @Route("/register", name="user_register")
 //     * @Method("GET")
