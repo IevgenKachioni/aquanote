@@ -6,6 +6,7 @@ use AppBundle\Form\LoginForm;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -15,11 +16,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
     private $formFactory;
     private $em;
+    private $router;
 
-    public function __construct(FormFactoryInterface $formFactory, EntityManager $em)
+    public function __construct(FormFactoryInterface $formFactory, EntityManager $em, RouterInterface $router)
     {
         $this->formFactory = $formFactory;
         $this->em = $em;
+        $this->router = $router;
     }
 
 
@@ -73,7 +76,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     /**
      * Step3: If null is returned from getUser, Guard fails.
-     * Otherwise, this method is called. Validation is performed in checkCredentials method!
+     * Otherwise, this method is called. Validation is performed here!
      *
      * @param mixed $credentials
      * @param UserInterface $user
@@ -84,7 +87,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
-        $password = $credentials['password'];
+        $password = $credentials['_password'];
 
         if ($password == 'password') {
             return true;
@@ -95,21 +98,26 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
 
     /**
-     * Return the URL to the login page (used if auth fails)
+     * Step 4: Return the URL to the login page (used if auth fails)
      *
      * @return string
      */
     protected function getLoginUrl()
     {
+        return $this->router->generate('security_login');
     }
 
 
     /**
-     * Return path to redirect to (if auth is successful)
+     * Step 4: Return path to redirect to (if auth is successful).
+     *
+     * Here, user is redirected back to last page he tried to visit automatically!
+     * If nowhere to redirect user back, user is redirected to specified route (returned value below).
      *
      * @return string
      */
     protected function getDefaultSuccessRedirectUrl()
     {
+        return $this->router->generate('homepage');
     }
 }

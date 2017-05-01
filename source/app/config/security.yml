@@ -16,6 +16,10 @@ security:
 
         main:
             anonymous: ~
+            guard:
+                authenticators:
+                    - app.security.login_form_authenticator
+
             # activate different ways to authenticate
 
             # http_basic: ~
