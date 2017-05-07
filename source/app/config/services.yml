@@ -20,3 +20,9 @@ services:
     app.security.login_form_authenticator:
         class: AppBundle\Security\LoginFormAuthenticator
         autowire: true
+
+    user_agent_subscriber:
+        class: AppBundle\EventListener\UserAgentSubscriber
+        arguments: ["@logger"]
+        tags:
+            - { name: kernel.event_subscriber }
