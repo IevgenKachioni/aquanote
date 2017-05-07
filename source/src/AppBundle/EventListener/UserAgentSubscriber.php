@@ -4,7 +4,10 @@ namespace AppBundle\EventListener;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\KernelEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
  * Must be registered as service to hook on Symfony Events
@@ -41,6 +44,11 @@ class UserAgentSubscriber implements EventSubscriberInterface
         $request = $event->getRequest();
         $userAgent = $request->headers->get('User-Agent');
         $this->logger->info('The user agent is: ' . $userAgent);
+
+//        if (rand(0,100) > 50) {
+//            $response = new Response('Be right back.');
+//            $event->setResponse($response);
+//        }
     }
 
 
@@ -52,7 +60,8 @@ class UserAgentSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-          'kernel.request' => 'onKernelRequest'
+          // 'kernel.request'
+          KernelEvents::REQUEST => 'onKernelRequest'
         ];
     }
 }
