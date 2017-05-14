@@ -1,8 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
     <h1 class="page-header text-center">Welcome Aquanauts!</h1>
+
     {% if isUbuntu %}
         <h4>Greetings, Ubuntu user!</h4>
     {% endif %}
+
+    {# Sub requests #}
+    {{ render(controller('AppBundle:Main:_latestTweets', {
+        'onUbuntu': app.request.attributes.get('isUbuntu')
+    })) }}
+
 {% endblock %}

@@ -40,6 +40,11 @@ class UserAgentSubscriber implements EventSubscriberInterface
      */
     public function onKernelRequest($event)
     {
+        if (!$event->isMasterRequest()) {
+            return;
+        }
+
+
         $this->logger->info('From kernel.request event subscriber');
         $request = $event->getRequest();
         $userAgent = $request->headers->get('User-Agent');
@@ -52,6 +57,10 @@ class UserAgentSubscriber implements EventSubscriberInterface
 
         // Add REQUEST ATTRIBUTE
         $isUbuntu = stripos($userAgent, 'Ubuntu') !== false;
+        if ($request->query->get('notUbuntu')) {
+            $isUbuntu = false;
+        }
+
         $request->attributes->set('isUbuntu', $isUbuntu);
     }
 
