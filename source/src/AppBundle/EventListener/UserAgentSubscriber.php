@@ -49,6 +49,10 @@ class UserAgentSubscriber implements EventSubscriberInterface
 //            $response = new Response('Be right back.');
 //            $event->setResponse($response);
 //        }
+
+        // Add REQUEST ATTRIBUTE
+        $isUbuntu = stripos($userAgent, 'Ubuntu') !== false;
+        $request->attributes->set('isUbuntu', $isUbuntu);
     }
 
 

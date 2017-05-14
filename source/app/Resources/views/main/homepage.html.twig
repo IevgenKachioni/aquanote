@@ -2,4 +2,7 @@
 
 {% block body %}
     <h1 class="page-header text-center">Welcome Aquanauts!</h1>
+    {% if isUbuntu %}
+        <h4>Greetings, Ubuntu user!</h4>
+    {% endif %}
 {% endblock %}

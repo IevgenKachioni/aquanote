@@ -6,8 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class MainController extends Controller
 {
-    public function homepageAction()
+    /**
+     * @param boolean $isUbuntu Set in UserAgentSubscriber
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function homepageAction($isUbuntu)
     {
-        return $this->render('main/homepage.html.twig');
+        return $this->render('main/homepage.html.twig', [
+            'isUbuntu' => $isUbuntu,
+        ]);
     }
 }
